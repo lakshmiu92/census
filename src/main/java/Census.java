@@ -1,7 +1,8 @@
 import java.io.Closeable;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 import java.util.function.Function;
+import java.util.stream.Collectors;
+
 
 /**
  * Implement the two methods below. We expect this class to be stateless and thread safe.
@@ -47,6 +48,20 @@ public class Census {
         throw new UnsupportedOperationException();
     }
 
+    /*
+    * Method getTop3Ages accepts a Map of a particular age and the number of instances
+    * of the age in the dataset(ie. count).
+    *
+    * */
+    // change to private
+    public String[] getTop3Ages(Map<Integer, Integer> ageCounts){
+
+        return ageCounts.entrySet().stream()
+                .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
+                .limit(3)
+                .map(entry -> String.format(OUTPUT_FORMAT, 0, entry.getKey(), entry.getValue())).toArray(String[]::new);
+
+    }
     /**
      * Given a list of region names, call {@link #iteratorFactory} to get an iterator for each region and return
      * the 3 most common ages across all regions in the format specified by {@link #OUTPUT_FORMAT}.
@@ -71,4 +86,5 @@ public class Census {
      */
     public interface AgeInputIterator extends Iterator<Integer>, Closeable {
     }
+
 }
