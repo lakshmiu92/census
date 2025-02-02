@@ -54,7 +54,7 @@ public class TestCensus {
     }
 
     @Test
-    public void testCensusSingle_InvalidAge_ThrowsExceptionOrIgnores() {
+    public void testCensusSingle_InvalidAge_ThrowsExceptionOrIgnores()  {
         AgeIteratorWrapper iterator =
                 registerIterator(new AgeIteratorWrapper(ImmutableList.of(0, 0, 0, 1, 1, 2, -1).iterator(), "invalidAge"));
         try {

@@ -1,6 +1,7 @@
 import java.io.Closeable;
 import java.util.*;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.function.Function;
@@ -19,7 +20,7 @@ public class Census {
     /**
      * Output format expected by our tests.
      */
-    public static final String OUTPUT_FORMAT = "%d:%d:%d"; // Position:Age=Total
+    public static final String OUTPUT_FORMAT = "%d:%d=%d"; // Position:Age=Total
 
     /**
      * Factory for iterators.
@@ -47,7 +48,6 @@ public class Census {
 //                String.format(OUTPUT_FORMAT, 2, 15, 35),
 //                String.format(OUTPUT_FORMAT, 3, 12, 30)
 //        };
-
         try (Census.AgeInputIterator ageInputIterator = iteratorFactory.apply(region)) {
             if(!ageInputIterator.hasNext()){
                 return new String[0];
@@ -63,10 +63,10 @@ public class Census {
     }
 
     /*
-    * Method getTop3Ages accepts a Map of a particular age and the number of instances
-    * of the age in the dataset(ie. count).
-    *
-    * */
+     * Method getTop3Ages accepts a Map of a particular age and the number of instances
+     * of the age in the dataset(ie. count).
+     *
+     * */
     // change to private
     public String[] getTop3Ages(Map<Integer, Integer> ageCounts){
 
@@ -76,17 +76,19 @@ public class Census {
                 .collect(Collectors.toList());
 
         String[] result  = new String[agesList.size()];
+
         for(int i = 0; i < agesList.size(); i++){
             Map.Entry<Integer,Integer> entry = agesList.get(i);
             //Index is stored as 1,2,3...
             result[i] = String.format(OUTPUT_FORMAT, i+1, entry.getKey(), entry.getValue());
         }
+
         return result;
     }
 
     /*
-    * Method getAgeCountsForIterator accepts an Iterator and returns a HashMap of counts of ages within that iterator.
-    * */
+     * Method getAgeCountsForIterator accepts an Iterator and returns a HashMap of counts of ages within that iterator.
+     * */
 
     private Map<Integer,Integer> getAgeCountsForIterator(Census.AgeInputIterator ageInputIterator){
         Map<Integer,Integer> iteratorMap = new HashMap<>();
@@ -102,9 +104,9 @@ public class Census {
     }
 
     /*
-    *  Method getTop3AgeCountsFromIterator gets the top 3 ages within an iterator. It uses the getAgeCountsForIterator
-    * method to create a Map of the counts.
-    * */
+     *  Method getTop3AgeCountsFromIterator gets the top 3 ages within an iterator. It uses the getAgeCountsForIterator
+     * method to create a Map of the counts.
+     * */
 
     private String[] getTop3AgeCountsFromIterator(Census.AgeInputIterator ageInputIterator){
         Map<Integer,Integer> ageCounts = getAgeCountsForIterator(ageInputIterator);
@@ -150,7 +152,11 @@ public class Census {
             try{
                 Map<Integer,Integer> ageCounts = future.get();
                 ageCounts.forEach((age, count) -> mergedAgeCounts.put(age, mergedAgeCounts.getOrDefault(age,0) + count));
-            } catch (Exception e) {
+            }
+            catch(ExecutionException e) {
+                System.err.println("Error occurred during concurrent execution " + e.getMessage());
+            }
+            catch (Exception e) {
                 throw new RuntimeException("Error while merging different regions", e);
             }
 

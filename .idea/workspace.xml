@@ -4,12 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="63b4965f-67bf-4442-aa60-b64a18cfe8f0" name="Changes" comment="Add edge cases for invalid ages, change output format">
+    <list default="true" id="63b4965f-67bf-4442-aa60-b64a18cfe8f0" name="Changes" comment="Add logic for list of Regions">
       <change beforePath="$PROJECT_DIR$/.gradle/6.7/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.7/executionHistory/executionHistory.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/6.7/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.7/fileHashes/fileHashes.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Census.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Census.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/TestCensus.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/TestCensus.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -90,7 +91,7 @@
     "Gradle.TestCensus.testCensusSingle_1Age_Success.executor": "Run",
     "Gradle.TestCensus.testCensusSingle_EmptyInput_ClosesIterator.executor": "Run",
     "Gradle.TestCensus.testCensusSingle_Exception_HandlesExceptions.executor": "Run",
-    "Gradle.TestCensus.testCensusSingle_InvalidAge_ThrowsExceptionOrIgnores.executor": "Debug",
+    "Gradle.TestCensus.testCensusSingle_InvalidAge_ThrowsExceptionOrIgnores.executor": "Run",
     "Gradle.Upgrade Gradle wrapper.executor": "Run",
     "Gradle.interview_census_v2 - LAKSHMI U [:Census.main()].executor": "Run",
     "Gradle.interview_census_v2 - LAKSHMI U [:IntermediateTester.main()].executor": "Run",
@@ -142,7 +143,7 @@
       <RunAsTest>true</RunAsTest>
       <method v="2" />
     </configuration>
-    <configuration name="TestCensus.testCensusMultiple_15X10_000_regions_Success" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="TestCensus.testCensusMultiple_Empty_ClosesAllIterators" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
@@ -155,31 +156,7 @@
           <list>
             <option value=":test" />
             <option value="--tests" />
-            <option value="&quot;TestCensus.testCensusMultiple_15X10_000_regions_Success&quot;" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
-      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
-      <DebugAllEnabled>false</DebugAllEnabled>
-      <RunAsTest>true</RunAsTest>
-      <method v="2" />
-    </configuration>
-    <configuration name="TestCensus.testCensusMultiple_1X1000_regions_share_place_Success" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value=":test" />
-            <option value="--tests" />
-            <option value="&quot;TestCensus.testCensusMultiple_1X1000_regions_share_place_Success&quot;" />
+            <option value="&quot;TestCensus.testCensusMultiple_Empty_ClosesAllIterators&quot;" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -238,13 +215,37 @@
       <RunAsTest>true</RunAsTest>
       <method v="2" />
     </configuration>
+    <configuration name="TestCensus.testCensusSingle_10_000_people_valid" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":test" />
+            <option value="--tests" />
+            <option value="&quot;TestCensus.testCensusSingle_10_000_people_valid&quot;" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>true</RunAsTest>
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
         <item itemvalue="Gradle.TestCensus" />
-        <item itemvalue="Gradle.TestCensus.testCensusMultiple_1X1000_regions_share_place_Success" />
-        <item itemvalue="Gradle.TestCensus.testCensusMultiple_15X10_000_regions_Success" />
         <item itemvalue="Gradle.TestCensus.testCensusMultiple_FailToReturn1Item_ClosesAllIterators" />
         <item itemvalue="Gradle.TestCensus.testCensusMultiple_FailToCreate1_ClosesAllIterators" />
+        <item itemvalue="Gradle.TestCensus.testCensusMultiple_Empty_ClosesAllIterators" />
+        <item itemvalue="Gradle.TestCensus.testCensusSingle_10_000_people_valid" />
       </list>
     </recent_temporary>
   </component>
@@ -289,7 +290,15 @@
       <option name="project" value="LOCAL" />
       <updated>1738478425165</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Add logic for list of Regions">
+      <option name="closed" value="true" />
+      <created>1738488508369</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1738488508369</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -308,6 +317,7 @@
     <MESSAGE value="Sort by decreasing order of age counts" />
     <MESSAGE value="Get top 3 ages for iterator" />
     <MESSAGE value="Add edge cases for invalid ages, change output format" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add edge cases for invalid ages, change output format" />
+    <MESSAGE value="Add logic for list of Regions" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add logic for list of Regions" />
   </component>
 </project>
