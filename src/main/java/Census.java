@@ -16,7 +16,7 @@ public class Census {
     /**
      * Output format expected by our tests.
      */
-    public static final String OUTPUT_FORMAT = "%d:%d=%d"; // Position:Age=Total
+    public static final String OUTPUT_FORMAT = "%d:%d:%d"; // Position:Age=Total
 
     /**
      * Factory for iterators.
@@ -45,7 +45,18 @@ public class Census {
 //                String.format(OUTPUT_FORMAT, 3, 12, 30)
 //        };
 
-        throw new UnsupportedOperationException();
+        try (Census.AgeInputIterator ageInputIterator = iteratorFactory.apply(region)) {
+            if(!ageInputIterator.hasNext()){
+                return new String[0];
+            }
+            else{
+                return getTop3AgeCountsFromIterator(ageInputIterator);
+            }
+        }
+        catch(Exception e){
+            throw new RuntimeException("Error occurred for region: " + region + ": " + e.getMessage(), e);
+        }
+
     }
 
     /*
@@ -56,11 +67,18 @@ public class Census {
     // change to private
     public String[] getTop3Ages(Map<Integer, Integer> ageCounts){
 
-        return ageCounts.entrySet().stream()
+        List <Map.Entry<Integer,Integer>> agesList = ageCounts.entrySet().stream()
                 .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
                 .limit(3)
-                .map(entry -> String.format(OUTPUT_FORMAT, 0, entry.getKey(), entry.getValue())).toArray(String[]::new);
+                .collect(Collectors.toList());
 
+        String[] result  = new String[agesList.size()];
+        for(int i = 0; i < agesList.size(); i++){
+            Map.Entry<Integer,Integer> entry = agesList.get(i);
+            //Index is stored as 1,2,3...
+            result[i] = String.format(OUTPUT_FORMAT, i+1, entry.getKey(), entry.getValue());
+        }
+        return result;
     }
 
     /*
@@ -71,7 +89,11 @@ public class Census {
         Map<Integer,Integer> iteratorMap = new HashMap<>();
         while(ageInputIterator.hasNext()){
             int age = ageInputIterator.next();
-            iteratorMap.put(age, iteratorMap.getOrDefault(age, 0) + 1);
+            //Handling for invalid ages
+            if (age >= 0){
+                iteratorMap.put(age, iteratorMap.getOrDefault(age, 0) + 1);
+            }
+
         }
         return iteratorMap;
     }
@@ -100,7 +122,9 @@ public class Census {
 //                String.format(OUTPUT_FORMAT, 3, 12, 30)
 //        };
 
-        throw new UnsupportedOperationException();
+        return new String[0];
+
+        //throw new UnsupportedOperationException();
     }
 
 

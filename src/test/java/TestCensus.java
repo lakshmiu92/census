@@ -29,7 +29,7 @@ public class TestCensus {
 
     @Test
     public void testCensusSingle_1Age_Success() {
-            registerIterator(new AgeIteratorWrapper(ImmutableList.of(1).iterator(), "1item"));
+        registerIterator(new AgeIteratorWrapper(ImmutableList.of(1).iterator(), "1item"));
         String[] strings = census.top3Ages("1item");
         System.out.println(Arrays.toString(strings));
         assertArrayEquals(new String[]{"1:1=1"}, strings);
