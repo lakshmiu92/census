@@ -62,6 +62,30 @@ public class Census {
                 .map(entry -> String.format(OUTPUT_FORMAT, 0, entry.getKey(), entry.getValue())).toArray(String[]::new);
 
     }
+
+    /*
+    * Method getAgeCountsForIterator accepts an Iterator and returns a HashMap of counts of ages within that iterator.
+    * */
+
+    private Map<Integer,Integer> getAgeCountsForIterator(Census.AgeInputIterator ageInputIterator){
+        Map<Integer,Integer> iteratorMap = new HashMap<>();
+        while(ageInputIterator.hasNext()){
+            int age = ageInputIterator.next();
+            iteratorMap.put(age, iteratorMap.getOrDefault(age, 0) + 1);
+        }
+        return iteratorMap;
+    }
+
+    /*
+    *  Method getTop3AgeCountsFromIterator gets the top 3 ages within an iterator. It uses the getAgeCountsForIterator
+    * method to create a Map of the counts.
+    * */
+
+    private String[] getTop3AgeCountsFromIterator(Census.AgeInputIterator ageInputIterator){
+        Map<Integer,Integer> ageCounts = getAgeCountsForIterator(ageInputIterator);
+        return getTop3Ages(ageCounts);
+    }
+
     /**
      * Given a list of region names, call {@link #iteratorFactory} to get an iterator for each region and return
      * the 3 most common ages across all regions in the format specified by {@link #OUTPUT_FORMAT}.
