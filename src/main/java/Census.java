@@ -1,5 +1,8 @@
 import java.io.Closeable;
 import java.util.*;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -122,7 +125,38 @@ public class Census {
 //                String.format(OUTPUT_FORMAT, 3, 12, 30)
 //        };
 
-        return new String[0];
+        ExecutorService executor = Executors.newFixedThreadPool(CORES);
+        List <CompletableFuture<Map<Integer,Integer>>> futures = new ArrayList<>();
+
+        for(String region: regionNames){
+            CompletableFuture<Map<Integer,Integer>> future = CompletableFuture.supplyAsync(() ->{
+                try(Census.AgeInputIterator ageInputIterator = iteratorFactory.apply(region)) {
+                    Map<Integer, Integer> ageCounts = new HashMap<>();
+                    while(ageInputIterator.hasNext()){
+                        int age = ageInputIterator.next();
+                        ageCounts.put(age, ageCounts.getOrDefault(age, 0) + 1);
+                    }
+                    return ageCounts;
+                }
+                catch(Exception e) {
+                    throw new RuntimeException("Error occurred : " + e.getMessage(), e);
+                }
+            }, executor);
+            futures.add(future);
+        }
+
+        Map<Integer, Integer> mergedAgeCounts = new HashMap<>();
+        for ( CompletableFuture<Map<Integer,Integer>> future: futures){
+            try{
+                Map<Integer,Integer> ageCounts = future.get();
+                ageCounts.forEach((age, count) -> mergedAgeCounts.put(age, mergedAgeCounts.getOrDefault(age,0) + count));
+            } catch (Exception e) {
+                throw new RuntimeException("Error while merging different regions", e);
+            }
+
+        }
+        executor.shutdown();
+        return getTop3Ages(mergedAgeCounts);
 
         //throw new UnsupportedOperationException();
     }
