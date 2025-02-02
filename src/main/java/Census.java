@@ -36,40 +36,15 @@ public class Census {
         this.iteratorFactory = iteratorFactory;
     }
 
+    
     /**
-     * Given one region name, call {@link #iteratorFactory} to get an iterator for this region and return
-     * the 3 most common ages in the format specified by {@link #OUTPUT_FORMAT}.
-     */
-    public String[] top3Ages(String region) {
-
-//        In the example below, the top three are ages 10, 15 and 12
-//        return new String[]{
-//                String.format(OUTPUT_FORMAT, 1, 10, 38),
-//                String.format(OUTPUT_FORMAT, 2, 15, 35),
-//                String.format(OUTPUT_FORMAT, 3, 12, 30)
-//        };
-        try (Census.AgeInputIterator ageInputIterator = iteratorFactory.apply(region)) {
-            if(!ageInputIterator.hasNext()){
-                return new String[0];
-            }
-            else{
-                return getTop3AgeCountsFromIterator(ageInputIterator);
-            }
-        }
-        catch(Exception e){
-            throw new RuntimeException("Error occurred for region: " + region + ": " + e.getMessage(), e);
-        }
-
-    }
-
-    /*
      * Method getTop3Ages accepts a Map of a particular age and the number of instances
      * of the age in the dataset(ie. count).
      *
      * */
-    // change to private
-    public String[] getTop3Ages(Map<Integer, Integer> ageCounts){
+    private String[] getTop3Ages(Map<Integer, Integer> ageCounts){
 
+        //Get top 3 age counts from Map
         List <Map.Entry<Integer,Integer>> agesList = ageCounts.entrySet().stream()
                 .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
                 .limit(3)
@@ -86,10 +61,10 @@ public class Census {
         return result;
     }
 
-    /*
+
+    /**
      * Method getAgeCountsForIterator accepts an Iterator and returns a HashMap of counts of ages within that iterator.
      * */
-
     private Map<Integer,Integer> getAgeCountsForIterator(Census.AgeInputIterator ageInputIterator){
         Map<Integer,Integer> iteratorMap = new HashMap<>();
         while(ageInputIterator.hasNext()){
@@ -103,15 +78,38 @@ public class Census {
         return iteratorMap;
     }
 
-    /*
+
+    /**
      *  Method getTop3AgeCountsFromIterator gets the top 3 ages within an iterator. It uses the getAgeCountsForIterator
      * method to create a Map of the counts.
      * */
-
     private String[] getTop3AgeCountsFromIterator(Census.AgeInputIterator ageInputIterator){
         Map<Integer,Integer> ageCounts = getAgeCountsForIterator(ageInputIterator);
         return getTop3Ages(ageCounts);
     }
+
+
+    /**
+     * Given one region name, call {@link #iteratorFactory} to get an iterator for this region and return
+     * the 3 most common ages in the format specified by {@link #OUTPUT_FORMAT}.
+     */
+    public String[] top3Ages(String region) {
+
+        try (Census.AgeInputIterator ageInputIterator = iteratorFactory.apply(region)) {
+            if(!ageInputIterator.hasNext()){
+                return new String[0];
+            }
+            else{
+                return getTop3AgeCountsFromIterator(ageInputIterator);
+            }
+        }
+        catch(Exception e){
+            throw new RuntimeException("Error occurred for region: " + region + ": " + e.getMessage(), e);
+        }
+
+    }
+
+
 
     /**
      * Given a list of region names, call {@link #iteratorFactory} to get an iterator for each region and return
@@ -120,16 +118,9 @@ public class Census {
      */
     public String[] top3Ages(List<String> regionNames) {
 
-//        In the example below, the top three are ages 10, 15 and 12
-//        return new String[]{
-//                String.format(OUTPUT_FORMAT, 1, 10, 38),
-//                String.format(OUTPUT_FORMAT, 2, 15, 35),
-//                String.format(OUTPUT_FORMAT, 3, 12, 30)
-//        };
-
         ExecutorService executor = Executors.newFixedThreadPool(CORES);
         List <CompletableFuture<Map<Integer,Integer>>> futures = new ArrayList<>();
-
+        //Get counts for all regions
         for(String region: regionNames){
             CompletableFuture<Map<Integer,Integer>> future = CompletableFuture.supplyAsync(() ->{
                 try(Census.AgeInputIterator ageInputIterator = iteratorFactory.apply(region)) {
@@ -147,6 +138,7 @@ public class Census {
             futures.add(future);
         }
 
+        //Merge results across regions
         Map<Integer, Integer> mergedAgeCounts = new HashMap<>();
         for ( CompletableFuture<Map<Integer,Integer>> future: futures){
             try{
@@ -164,7 +156,6 @@ public class Census {
         executor.shutdown();
         return getTop3Ages(mergedAgeCounts);
 
-        //throw new UnsupportedOperationException();
     }
 
 

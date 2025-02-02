@@ -4,13 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="63b4965f-67bf-4442-aa60-b64a18cfe8f0" name="Changes" comment="Add logic for list of Regions">
+    <list default="true" id="63b4965f-67bf-4442-aa60-b64a18cfe8f0" name="Changes" comment="Added Exception for future.get, edge cases">
       <change beforePath="$PROJECT_DIR$/.gradle/6.7/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.7/executionHistory/executionHistory.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/6.7/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.7/fileHashes/fileHashes.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Census.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Census.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/TestCensus.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/TestCensus.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/IntermediateTester.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -77,39 +77,39 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.Census.executor": "Run",
-    "Gradle.Build interview_census_v2 - LAKSHMI U.executor": "Run",
-    "Gradle.TestCensus.executor": "Run",
-    "Gradle.TestCensus.testCensusMultiple_15X10_000_regions_Success.executor": "Run",
-    "Gradle.TestCensus.testCensusMultiple_1X1000_regions_share_place_Success.executor": "Run",
-    "Gradle.TestCensus.testCensusMultiple_Empty_ClosesAllIterators.executor": "Run",
-    "Gradle.TestCensus.testCensusMultiple_FailToCreate1_ClosesAllIterators.executor": "Run",
-    "Gradle.TestCensus.testCensusMultiple_FailToReturn1Item_ClosesAllIterators.executor": "Run",
-    "Gradle.TestCensus.testCensusSingle_10_000_people_valid.executor": "Run",
-    "Gradle.TestCensus.testCensusSingle_1Age_Success.executor": "Run",
-    "Gradle.TestCensus.testCensusSingle_EmptyInput_ClosesIterator.executor": "Run",
-    "Gradle.TestCensus.testCensusSingle_Exception_HandlesExceptions.executor": "Run",
-    "Gradle.TestCensus.testCensusSingle_InvalidAge_ThrowsExceptionOrIgnores.executor": "Run",
-    "Gradle.Upgrade Gradle wrapper.executor": "Run",
-    "Gradle.interview_census_v2 - LAKSHMI U [:Census.main()].executor": "Run",
-    "Gradle.interview_census_v2 - LAKSHMI U [:IntermediateTester.main()].executor": "Run",
-    "JUnit.TestCensus.testCensusSingle_10_000_people_valid.executor": "Run",
-    "JUnit.TestCensus.testCensusSingle_1Age_Success.executor": "Run",
-    "JUnit.TestCensus.testCensusSingle_EmptyInput_ClosesIterator.executor": "Run",
-    "JUnit.TestCensus.testCensusSingle_Exception_HandlesExceptions.executor": "Run",
-    "JUnit.TestCensus.testCensusSingle_InvalidAge_ThrowsExceptionOrIgnores.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "master",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/laksh/Downloads/interview_census_v2 - Lakshmi U",
-    "project.structure.last.edited": "Project",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.0",
-    "settings.editor.selected.configurable": "reference.settingsdialog.project.gradle"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.Census.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.Build interview_census_v2 - LAKSHMI U.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.TestCensus.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.TestCensus.testCensusMultiple_15X10_000_regions_Success.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.TestCensus.testCensusMultiple_1X1000_regions_share_place_Success.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.TestCensus.testCensusMultiple_Empty_ClosesAllIterators.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.TestCensus.testCensusMultiple_FailToCreate1_ClosesAllIterators.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.TestCensus.testCensusMultiple_FailToReturn1Item_ClosesAllIterators.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.TestCensus.testCensusSingle_10_000_people_valid.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.TestCensus.testCensusSingle_1Age_Success.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.TestCensus.testCensusSingle_EmptyInput_ClosesIterator.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.TestCensus.testCensusSingle_Exception_HandlesExceptions.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.TestCensus.testCensusSingle_InvalidAge_ThrowsExceptionOrIgnores.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.Upgrade Gradle wrapper.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.interview_census_v2 - LAKSHMI U [:Census.main()].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.interview_census_v2 - LAKSHMI U [:IntermediateTester.main()].executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.TestCensus.testCensusSingle_10_000_people_valid.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.TestCensus.testCensusSingle_1Age_Success.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.TestCensus.testCensusSingle_EmptyInput_ClosesIterator.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.TestCensus.testCensusSingle_Exception_HandlesExceptions.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.TestCensus.testCensusSingle_InvalidAge_ThrowsExceptionOrIgnores.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/laksh/Downloads/interview_census_v2 - Lakshmi U&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settingsdialog.project.gradle&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\laksh\Downloads\interview_census_v2 - Lakshmi U\src\src-backup" />
@@ -298,7 +298,15 @@
       <option name="project" value="LOCAL" />
       <updated>1738488508369</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Added Exception for future.get, edge cases">
+      <option name="closed" value="true" />
+      <created>1738509283585</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1738509283585</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -318,6 +326,7 @@
     <MESSAGE value="Get top 3 ages for iterator" />
     <MESSAGE value="Add edge cases for invalid ages, change output format" />
     <MESSAGE value="Add logic for list of Regions" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add logic for list of Regions" />
+    <MESSAGE value="Added Exception for future.get, edge cases" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added Exception for future.get, edge cases" />
   </component>
 </project>
